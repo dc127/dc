@@ -153,15 +153,15 @@ public class UserServiceImpl implements IUSerService{
         if(resultCount>0){
             return ServerResponse.createByErrorMessage("邮箱已存在,请更换email再尝试更新");
         }
-        User newuser = new User();
-        newuser.setId(user.getId());
-        newuser.setEmail(user.getEmail());
-        newuser.setQuestion(user.getQuestion());
-        newuser.setAnswer(user.getAnswer());
+        User newUser = new User();
+        newUser.setId(user.getId());
+        newUser.setEmail(user.getEmail());
+        newUser.setQuestion(user.getQuestion());
+        newUser.setAnswer(user.getAnswer());
 
-        int updateCount = userMapper.updateByPrimaryKeySelective(newuser);
+        int updateCount = userMapper.updateByPrimaryKeySelective(newUser);
         if(updateCount>0){
-            return ServerResponse.createBySuccess("更新个人信息成功",newuser);
+            return ServerResponse.createBySuccess("更新个人信息成功",newUser);
         }
         return ServerResponse.createByErrorMessage("更新个人信息失败");
     }
@@ -173,5 +173,14 @@ public class UserServiceImpl implements IUSerService{
         }
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess(user);
+    }
+
+    //backend
+    //校验是否是管理员
+    public ServerResponse checkAdminRole(User user){
+        if(user!=null&& user.getRole().intValue()==Const.Role.ROLE_ADMIN){//注意：getRole()为Integer类型
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
     }
 }

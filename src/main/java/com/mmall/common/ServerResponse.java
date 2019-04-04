@@ -74,10 +74,10 @@ public class ServerResponse<T> implements Serializable{
         return new ServerResponse<T>(ResponseCode.ERROR.getCode(),ResponseCode.ERROR.getDesc());
     }
 
-    public static <T> ServerResponse<T> createByErrorMessage(String errormessgae){
-        return new ServerResponse<T>(ResponseCode.ERROR.getCode(),errormessgae);
+    public static <T> ServerResponse<T> createByErrorMessage(String errorMessage){
+        return new ServerResponse<T>(ResponseCode.ERROR.getCode(),errorMessage);
     }
-    public static <T> ServerResponse<T> createByErrorCodeMessage(int errorcode,String errormessgae){
-        return new ServerResponse<T>(errorcode,errormessgae);
+    public static <T> ServerResponse<T> createByErrorCodeMessage(int errorCode,String errorMessage){
+        return new ServerResponse<T>(errorCode,errorMessage);
     }
 }

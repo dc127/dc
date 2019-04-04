@@ -149,12 +149,12 @@ public class UserController {
     @RequestMapping(value = "updateUserInfo.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> updateUserInfo(HttpSession session,User user){
-        User currentuser = (User)session.getAttribute(Const.CURRENT_USER);
-        if(currentuser == null){
+        User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
+        if(currentUser == null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        user.setId(currentuser.getId());//获取当前用户的id并给user对象
-        user.setUsername(currentuser.getUsername());
+        user.setId(currentUser.getId());//获取当前用户的id并给user对象
+        user.setUsername(currentUser.getUsername());
         ServerResponse<User> response= iUserService.updateUserInfo(user);
         if(response.isSuccess()){
            session.setAttribute(Const.CURRENT_USER,response.getData());
@@ -170,11 +170,11 @@ public class UserController {
     @RequestMapping(value = "getInfo.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> getInfo(HttpSession session){
-        User currentuser = (User)session.getAttribute(Const.CURRENT_USER);
-        if(currentuser == null){
+        User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
+        if(currentUser == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"未登录，需要强制登录status=10");
         }
-        return iUserService.getUserInfo(currentuser.getId());
+        return iUserService.getUserInfo(currentUser.getId());
     }
 
 }
