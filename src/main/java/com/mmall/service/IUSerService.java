@@ -12,5 +12,13 @@ public interface IUSerService {
 
     ServerResponse<String> selectQuestion(String username);
 
-    ServerResponse<String> checkAnser(String username,String question,String answer);
+    ServerResponse<String> checkAnswer(String username,String question,String answer);
+
+    ServerResponse<String> forgetRestPassword(String username,String newPassword,String forgetToken);
+
+    ServerResponse<String> restPassword(String oldPassword,String newPassword,User user);
+
+    ServerResponse<User> updateUserInfo(User user);
+
+    ServerResponse<User> getUserInfo(Integer userId);
 }

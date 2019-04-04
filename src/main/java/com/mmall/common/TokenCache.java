@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class TokenCache {
     private static Logger logger = LoggerFactory.getLogger(TokenCache.class);
+
+    public static final String TOKEN_PREFIX = "token_";
     //Guava是一种基于开源的Java库,这个库是为了方便编码，并减少编码错误
     /**
      * 通过本地的Guava缓存做一个Token（调用链模式）
