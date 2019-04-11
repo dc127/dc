@@ -151,6 +151,14 @@ public class productManageController {
             return ServerResponse.createByErrorMessage("无权操作");
         }
     }
+
+    /**
+     * 上传文件
+     * @param session
+     * @param file
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "upload.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload(HttpSession session,@RequestParam(value = "upload_file",required = false) MultipartFile file , HttpServletRequest request){
@@ -172,6 +180,14 @@ public class productManageController {
         }
     }
 
+    /**
+     * 富文本上传
+     * @param session
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "richtextImgUpload.do",method = RequestMethod.POST)
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file",required = false) MultipartFile file , HttpServletRequest request, HttpServletResponse response){
