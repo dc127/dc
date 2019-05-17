@@ -5,14 +5,20 @@ import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IUSerService;
+import com.mmall.util.CodeCaptchaServlet;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user/")
@@ -176,5 +182,22 @@ public class UserController {
         }
         return iUserService.getUserInfo(currentUser.getId());
     }
+    @Autowired
+    private HttpServletRequest request; //自动注入request
 
+
+    @RequestMapping("/checkCode")
+    @ResponseBody
+    public Map<String, Object> checkCode(Model model, @RequestParam(value = "code", required = false) String code) {
+        Map map = new HashMap<String, Object>();
+        String vcode= (String) request.getSession().getAttribute(CodeCaptchaServlet.VERCODE_KEY);
+        if (code.equals(vcode)) {
+            //验证码正确
+            map.put("message", "success");
+        } else {
+            //验证码错误
+            map.put("message", "fail");
+        }
+        return map;
+    }
 }
