@@ -77,6 +77,7 @@ public class CartServiceImpl implements ICartservice {
                     cartProductVo.setProductName(product.getName());
                     cartProductVo.setProductSubtitle(product.getSubtitle());
                     cartProductVo.setProductStatus(product.getStatus());
+                    cartProductVo.setProductPrice(product.getPrice());
                     cartProductVo.setProductTotalPrice(product.getPrice());
                     cartProductVo.setProductStock(product.getStock());
 
