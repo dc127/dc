@@ -197,14 +197,14 @@
   </select>
   <select id="selectByNameAndCategoryId" resultMap="BaseResultMap" parameterType="map">
     SELECT
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"></include>
     from mmall_product
-    WHERE status = 1
+    where status = 1
     <if test="productName != null">
-      AND  NAME LIKE #{productName}
+      and name like #{productName}
     </if>
-    <if test="categoryIdList!=null">
-      AND category_id IN
+    <if test="categoryIdList != null" >
+      and category_id in
       <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryIdList">
         #{item}
       </foreach>

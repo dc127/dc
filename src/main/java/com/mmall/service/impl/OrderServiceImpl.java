@@ -249,7 +249,7 @@ public class OrderServiceImpl implements IOrderService{
             return serverResponse;
         }
         List<OrderItem> orderItemList = (List<OrderItem>)serverResponse.getData();
-        BigDecimal payment = this.getOrderTotalPrice(orderItemList);//计算总价
+        BigDecimal payment = this.getOrderTotalPrice(orderItemList);
 
 
         //生成订单
@@ -261,6 +261,7 @@ public class OrderServiceImpl implements IOrderService{
             return ServerResponse.createByErrorMessage("购物车为空");
         }
         for(OrderItem orderItem : orderItemList){
+           // orderItem.setId(shippingId);
             orderItem.setOrderNo(order.getOrderNo());
         }
         //mybatis 批量插入
@@ -272,6 +273,7 @@ public class OrderServiceImpl implements IOrderService{
         this.cleanCart(cartList);
 
         //返回给前端数据
+
         OrderVo orderVo = assembleOrderVo(order,orderItemList);
         return ServerResponse.createBySuccess(orderVo);
     }

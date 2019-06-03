@@ -9,7 +9,7 @@
             <level>DEBUG</level>
         </filter>
     </appender>
-
+    <!--生成日志-->
     <appender name="mmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/mmalllog/mmall.log</File>-->
         <File>E:/DCALL/apache-tomcat-7.0.75/logs/mmall.log</File>
