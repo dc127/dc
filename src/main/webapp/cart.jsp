@@ -3,23 +3,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-<link rel="stylesheet" type="text/css" href="css/style1.css">
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.luara.0.0.1.min.js"></script>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <link rel="stylesheet" type="text/css" href="css/style1.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.luara.0.0.1.min.js"></script>
+    <script src="js/loginOrOut.js"></script><%--登录登出的js--%>
 </head>
 <body>
-<div style="height:25ox;background:#f0f0f0;">
-	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
-    	<font class="left_yh">欢迎来到永安庄园•礼品世家！</font>
-        <div  style="float:right;" id="fast_jump">
-        	<a href="login.jsp">登录</a>
-            <b></b>
-            <a href="reg.jsp">注册</a>
-            <b></b>
-            <a href="address.jsp">个人中心</a>
-            <b></b>
+<div class="width100" style="height:25ox;background:#f0f0f0;">
+    <div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
+        <font class="left_yh">欢迎来到清真的味道•商城</font>
+        <div class="right_yh" id="fast_jump">
+            <div class="login">
+                <a href="#">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>

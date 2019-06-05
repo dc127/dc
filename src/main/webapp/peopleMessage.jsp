@@ -3,25 +3,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>无标题文档</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.luara.0.0.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>无标题文档</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.luara.0.0.1.min.js"></script>
+    <script src="js/loginOrOut.js"></script><%--登录登出的js--%>
 </head>
 
 <body>
 <div class="width100" style="height:25ox;background:#f0f0f0;">
-	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
-    	<font class="left_yh">欢迎来到清真的味道•商城</font>
+    <div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
+        <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
-        	<a href="login1.jsp">登录</a>
-            <b></b>
-            <a href="enroll1.jsp">注册</a>
-            <b></b>
-            <a href="address.jsp">个人中心</a>
-            <b></b>
-            
+            <div class="login">
+                <a href="peopleMessage.jsp">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>
@@ -95,7 +99,7 @@
         <!--普通导航-->
            <div class="left_yh font16" id="pageNav">
         	<a href="index.jsp">首页</a>
-            <a href="#a">热销商品</a>
+            <a href="detailShow.jsp">热销商品</a>
             <a href="#b">电子礼品</a>
             <a href="#c">礼盒类产品</a>
             <a href="#d">高温熟食</a>
@@ -105,18 +109,18 @@
 </div>
 <!--当前位置-->
 <div class="width1200 center_yh hidden_yh font14" style="height:40px;line-height:40px;">
-	<span>当前位置:</span><a href="#" class="c_66">首页></a><a href="#" class="c_66">我的账户></a>
+	<span>当前位置:</span><a href="#" class="c_66">首页></a><a href="#·" class="c_66">我的账户></a>
 </div>
 <div class="width100 hidden_yh" style="background:#66c561;padding-top:34px;padding-bottom:34px;">
 	<div class="width1200 hidden_yh center_yh">
     	<div id="vipNav">
-        		<a href="peopleCenter.jsp" class="on">账户总览</a>
-            <a href="peopleMessage.jsp">个人信息</a>
+        		<a href="peopleCenter.jsp">账户总览</a>
+            <a href="peopleMessage.jsp"  class="on">个人信息</a>
             <a href="order.jsp">我的订单</a>
-            <a href="collect.jsp">商品收藏</a>
+            <%--<a href="collect.jsp">商品收藏</a>--%>
             <a href="shopCar.jsp">我的购物车</a>
             <a href="password.jsp">修改密码</a>
-            <a href="after-sales.jsp">售后管理</a>
+      <%--      <a href="after-sales.jsp">售后管理</a>--%>
             <a href="address.jsp">收货地址</a>
         </div>
         <div id="vipRight">
@@ -126,58 +130,38 @@
                 	<!--一条-->
                     <div class="width100 hidden_yh">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>当前头像：</div>
+                        <form action="/manage/product/richtextImgUpload.do" method="post" enctype="multipart/form-data">
                     	<img src="images/mrtx.png" width="105" height="105" class="left_yh">
                         <div style="width:86px;height:28px;background:#fff;border:1px solid #ddd;float:left;overflow:hidden;position:relative;margin-left:20px;margin-top:75px;">
                         	<div style="position:absolute;top:0;left:0;width:100%;height:28px;text-align:center;line-height:28px;font-size:16px;color:#666;">上传头像</div>
-                        	<input type="file" style="opacity:0;display:block;width:100%;height:100%;">
+                            <input type="file" style="opacity:0;display:block;width:100%;height:100%;" name="upload_file">
                         </div>
+                        </form>
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>用户名：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
+                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.username }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
-                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>真实姓名：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" readonly value="123">
-                	</div>
-                    <!--一条-->
-                    <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
-                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>性别：</div>
-                    	<select style="outline:none;border:1px solid #ddd;height:30px;">
-                            <option>保密</option>
-                            <option>男</option>
-                            <option>女</option>
-                        </select>
-                	</div>
-                    <!--一条-->
-                    <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
-                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>生日：</div>
-                    	<select style="outline:none;border:1px solid #ddd;height:30px;">
-                            <option>请选择</option>
-                        </select>
-                        <select style="outline:none;border:1px solid #ddd;height:30px;">
-                            <option>请选择</option>
-                        </select>
-                        <select style="outline:none;border:1px solid #ddd;height:30px;">
-                            <option>请选择</option>
-                        </select>
+                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>电话：</div>
+                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.phone }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>邮箱：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
+                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.email }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
-                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>已绑定电话：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" readonly value="123">
+                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>问题：</div>
+                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.question }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
-                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>修改电话：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
+                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>答案：</div>
+                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.answer }">
                 	</div>
                     <!--保存-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:83px;">
@@ -188,5 +172,55 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url : "/user/getUserInfo.do",
+            type : "POST",
+            async : true,
+            dataType : 'json',
+            success : function(data) {
+                if(data.status===0){
+                    $(".not-login").hide();
+                    $(".login").show();
+                }else{
+                    $(".login").hide();
+                    $(".not-login").show();
+                }
+            },
+            error : function (err) {
+                alert(err.msg);
+            }
+        });
+    })
+    function Logout() {
+        //网络请求
+        $.ajax({
+            type  		: "POST",
+            url   		: '/user/logout.do',
+            dataType	: "json",
+            success     : function(res){
+                //请求成功
+                if(0 === res.status){
+                    window.location.href='http://localhost:8888/index.jsp';
+                    alert(res.msg);
+                }
+                //无登陆状态，需要强制登陆
+                else if(10 === res.status){
+                    alert("需要登录");
+                }
+                //请求数据错误
+                else if(1  === res.status){
+                    alert("登录错误"+res.msg);
+                }
+
+            },
+            error       : function(err){
+                alert(err.statusText);
+            }
+
+        });
+    }
+</script>
 </body>
 </html>

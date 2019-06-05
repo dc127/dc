@@ -3,25 +3,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品收藏</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.luara.0.0.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>商品收藏</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.luara.0.0.1.min.js"></script>
+    <script src="js/loginOrOut.js"></script><%--登录登出的js--%>
 </head>
 
 <body>
 <div class="width100" style="height:25ox;background:#f0f0f0;">
-	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
-    	<font class="left_yh">欢迎来到清真的味道•商城</font>
+    <div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
+        <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
-        	<a href="login1.jsp">登录</a>
-            <b></b>
-            <a href="enroll1.jsp">注册</a>
-            <b></b>
-            <a href="address.jsp">个人中心</a>
-            <b></b>
-            
+            <div class="login">
+                <a href="#">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>
@@ -95,7 +99,7 @@
         <!--普通导航-->
            <div class="left_yh font16" id="pageNav">
         	<a href="index.jsp">首页</a>
-            <a href="#a">热销商品</a>
+            <a href="detailShow.jsp">热销商品</a>
             <a href="#b">电子礼品</a>
             <a href="#c">礼盒类产品</a>
             <a href="#d">高温熟食</a>
@@ -110,10 +114,10 @@
 <div class="width100 hidden_yh" style="background:#66c561;padding-top:34px;padding-bottom:34px;">
 	<div class="width1200 hidden_yh center_yh">
     	<div id="vipNav">
-        		<a href="peopleCenter.jsp" class="on">账户总览</a>
+        		<a href="peopleCenter.jsp" >账户总览</a>
             <a href="peopleMessage.jsp">个人信息</a>
             <a href="order.jsp">我的订单</a>
-            <a href="collect.jsp">商品收藏</a>
+            <a href="collect.jsp" class="on">商品收藏</a>
             <a href="shopCar.jsp">我的购物车</a>
             <a href="password.jsp">修改密码</a>
             <a href="after-sales.jsp">售后管理</a>

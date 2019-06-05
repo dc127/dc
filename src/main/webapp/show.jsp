@@ -1,4 +1,4 @@
-<%@page import="org.lanqiao.enetity.Gift"%>
+<%--<%@page import="org.lanqiao.enetity.Gift"%>--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -10,24 +10,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品主页</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.luara.0.0.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>商品主页</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.luara.0.0.1.min.js"></script>
+    <script src="js/loginOrOut.js"></script><%--登录登出的js--%>
 </head>
 <body>
-  <div class="width100" style="height:25ox;background:#f0f0f0;">
-	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
-    	<font class="left_yh">欢迎来到清真的味道•商城</font>
+<div class="width100" style="height:25ox;background:#f0f0f0;">
+    <div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
+        <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
-        	<a href="login1.jsp">登录</a>
-            <b></b>
-            <a href="enroll1.jsp">注册</a>
-            <b></b>
-            <a href="address.jsp">个人中心</a>
-            <b></b>
-            
+            <div class="login">
+                <a href="peopleMessage.jsp">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>
@@ -101,7 +105,7 @@
         <!--普通导航-->
            <div class="left_yh font16" id="pageNav">
         	<a href="index.jsp">首页</a>
-            <a href="#a">热销商品</a>
+            <a href="detailShow.jsp">热销商品</a>
             <a href="#b">电子礼品</a>
             <a href="#c">礼盒类产品</a>
             <a href="#d">高温熟食</a>
@@ -131,12 +135,12 @@
 <div class="width1200 center_yh" style="margin-top:20px;">
 	<div class="tjgoods">
     	<a href="#">
-    	<%
+    	<%--<%
     	Gift gift = (Gift)request.getAttribute("gift");  
     	out.print("<img width='180' height='250' style='margin:0 auto' src="+gift.getGift_img()+">");
     	out.print("<h4 class='yihang'>"+gift.getGift_name()+"</h4>");
     	out.print("<p class='red tcenter'>"+gift.getGift_price()+"</p>");
-    	%>
+    	%>--%>
         	<%-- <img src="${requestScope.gift.gift_img}">
             <h4 class="yihang">${requestScope.gift.gift_name}</h4>
             <p class="red tcenter">${requestScope.gift.gift_price}</p> --%>
@@ -146,7 +150,7 @@
 <!--页脚-->
 <div class="width100 hidden_yh" style="background:#66c561;margin-top:90px;">
 	<div class="width1200 center_yh tcenter" style="margin-top:44px;">
-    	<a href="#a" class="in_block font16 c_33" style="padding:0 30px">热销商品</a>
+    	<a href="detailShow.jsp" class="in_block font16 c_33" style="padding:0 30px">热销商品</a>
         <a href="#b" class="in_block font16 c_33" style="padding:0 30px">美食推荐</a>
         <a href="#c" class="in_block font16 c_33" style="padding:0 30px">店铺推荐</a>
         <a href="#d" class="in_block font16 c_33" style="padding:0 30px">清真百科</a>

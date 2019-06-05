@@ -3,25 +3,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>无标题文档</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.luara.0.0.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>无标题文档</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.luara.0.0.1.min.js"></script>
+    <script src="js/loginOrOut.js"></script><%--登录登出的js--%>
 </head>
 
 <body>
 <div class="width100" style="height:25ox;background:#f0f0f0;">
-	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
-    	<font class="left_yh">欢迎来到清真的味道•商城</font>
+    <div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
+        <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
-        	<a href="login1.jsp">登录</a>
-            <b></b>
-            <a href="enroll1.jsp">注册</a>
-            <b></b>
-            <a href="address.jsp">个人中心</a>
-            <b></b>
-            
+            <div class="login">
+                <a href="peopleMessage.jsp">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>
@@ -110,34 +114,60 @@
 <div class="width100 hidden_yh" style="background:#66c561;padding-top:34px;padding-bottom:34px;">
 	<div class="width1200 hidden_yh center_yh">
     	<div id="vipNav">
-        		<a href="peopleCenter.jsp" class="on">账户总览</a>
+        		<a href="peopleCenter.jsp" >账户总览</a>
             <a href="peopleMessage.jsp">个人信息</a>
             <a href="order.jsp">我的订单</a>
-            <a href="collect.jsp">商品收藏</a>
+            <%--<a href="collect.jsp">商品收藏</a>--%>
             <a href="shopCar.jsp">我的购物车</a>
-            <a href="password.jsp">修改密码</a>
-            <a href="after-sales.jsp">售后管理</a>
+            <a href="password.jsp" class="on">修改密码</a>
+            <%--<a href="after-sales.jsp">售后管理</a>--%>
             <a href="address.jsp">收货地址</a>
         </div>
+        <script type="text/javascript">
+            function restPassword() {
+                if($("#newPassword").val()==$("#newPassword1").val()){
+                    $.ajax({
+                        url : "/user/restPassword.do",
+                        type : "POST",
+                        data        :{oldPassword:$("#oldPassword").val(),newPassword:$("#newPassword").val()},
+                        dataType	: "json",
+                        success     : function(res){
+                            if(res.status == 0) {
+                                alert(res.msg);
+                            }else if(res.status==1){
+                                alert(res.msg);
+                            }else{
+                                alert("修改密码失败，请重试");
+                            }
+                        },
+                        error       : function(err){
+                            alert(err.statusText);
+                        }
+                    });
+                }else {
+                    alert("新密码不同，请重新输入");
+                }
+            }
+        </script>
         <div id="vipRight">
             <div class="font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;width:938px;border:1px solid #ddd;">
-            	收货地址
+            	修改密码
          	</div>
             <div class="bj_fff hidden_yh" style="width:838px;border:1px solid #ddd;margin-top:29px;padding:50px;">
                 <div class="width100" style="height:32px;line-height:32px;">
-                	<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>旧密码：</div>
-                    <input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
+                	<div   class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>旧密码：</div>
+                    <input id="oldPassword" type="password" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
-                	<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>新密码：</div>
-                    <input type="password" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
+                	<div  class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>新密码：</div>
+                    <input id="newPassword" type="password" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
                 </div>
-                <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
+                <div  class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 	<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>确认新密码：</div>
-                    <input type="password" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
+                    <input id="newPassword1" type="password" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;">
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:83px;">
-                	<a href="javascript:void(0)" class="left_yh block_yh font16 tcenter ff5802" style="width:244px;height:33px;line-height:33px;margin-left:120px;">保存</a>
+                	<a onclick="restPassword();" class="left_yh block_yh font16 tcenter ff5802" style="width:244px;height:33px;line-height:33px;margin-left:120px;">保存</a>
                 </div>
             </div>
     	</div>
