@@ -17,18 +17,23 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/jquery.luara.0.0.1.min.js"></script>
-</head><body>
+<script src="js/loginOrOut.js"></script><%--登录登出的js--%>
+</head>
+<body>
 <div class="width100" style="height:25ox;background:#f0f0f0;">
 	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
     	<font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
-        	<a href="/user/login.do">登录</a>
-            <b></b>
-            <a href="/user/register.do">注册</a>
-            <b></b>
-            <a href="peopleCenter.jsp">个人中心</a>
-            <b></b>
-            
+            <div class="login">
+                <a href="peopleMessage.jsp">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>
@@ -101,8 +106,8 @@
         </div>
         <!--普通导航-->
         <div class="left_yh font16" id="pageNav">
-        	<a href="PeopleCenterServlet">个人中心</a>
-            <a href="#a">热销商品</a>
+        	<a href="#" onclick="LoginCheck();">个人中心</a>
+            <a href="detailShow.jsp">热销商品</a>
             <a href="#b">电子礼品</a>
             <a href="#c">礼盒类产品</a>
             <a href="#d">高温熟食</a>
@@ -127,28 +132,53 @@
 </div>
 <!--今日推荐-->
 <div class="width1200 center_yh groom">
-	<a href="#" class="right_yh block_yh" style="width:73px;height:45px;"></a>
+    <a href="#" class="right_yh block_yh" style="width:73px;height:45px;"></a>
 </div>
+<!--今日推荐js-->
+<script>
+   /* $(function(){
+        $.ajax({
+            url : "",
+            type : "POST",
+            dataType	: "json",
+            success     : function(res){
+
+            },
+            error       : function(err){
+                alert(err.statusText);
+            }
+
+        });
+    });*/
+</script>
 <div class="width1200 center_yh" style="margin-top:20px;">
-	<%
-//       List<Gift> gift = (List<Gift>)request.getAttribute("gift");
-//       if(gift!=null){
-//         for(int i=0;i<3;i++){
-    %>
-	<div class="tjgoods">  
-	<a href="/GiftFamily/GiftListServlet1?s=泰迪">
-    <%
-//    out.print("<img src='"+gift.get(i).getGift_img()+">");
-//    out.print("<h4 class='yihang'>"+gift.get(i).getGift_name()+"</h4>");
-//    out.print("<p class='red tcenter'> ￥"+gift.get(i).getGift_price()+"</p>");
-     %>
-       </a>
-         </div>
-     </div>
-     <%
-//     	}
-//     }
-     %>    
+
+    <div class="tjgoods">
+        <%--一条--%>
+        <a href="detailShow.jsp">
+            <img src="images/lingshilibao.jpg" width="105" height="118">
+            <h4 class="yihang">零食礼包</h4>
+            <p class="red tcenter">￥56.0</p>
+        </a>
+            <%--一条--%>
+        <a href="detailShow.jsp">
+            <img src="images/贺岁佳肴.jpg" width="105" height="118">
+            <h4 class="yihang">贺岁佳肴</h4>
+            <p class="red tcenter">￥688.0</p>
+        </a>
+            <%--一条--%>
+        <a href="detailShow.jsp">
+            <img src="images/hongshaoniurou.jpg" width="105" height="118">
+            <h4 class="yihang">红烧牛肉</h4>
+            <p class="red tcenter">￥18.8</p>
+        </a>
+            <%--一条--%>
+        <a href="detailShow.jsp">
+            <img src="images/香米小粑粑香米.jpg" width="105" height="118">
+            <h4 class="yihang">香米小粑粑香米</h4>
+            <p class="red tcenter">￥18.0</p>
+        </a>
+</div>
 <!--热销商品-->
 <div class="width1200 center_yh hidden_yh">
 	<div class="width100" style="height:45px;line-height:45px;border-bottom:2px solid #66c561;margin-top:20px;">
@@ -157,54 +187,53 @@
         <a href="#" class="right_yh c_33 font16">更多»</a>
     </div>
     <div class="width100 hidden_yh" style="height:388px;">
-    	<!-- <a href="/GiftFamily/CommodityServlet?giftId=52" style="width:227px;height:388px;float:left;"><img src="images/tongshizi.jpg"></a> -->
         <div class="normalPic">
-        	<a href="/GiftFamily/GiftListServlet1?s=香米小粑粑香米">
+        	<a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香米小粑粑香米</h3>
                 <p class="red font14" style="padding-left:10px;">￥18.0</p>
                 <img src="images/香米小粑粑香米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=3">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">豆沙年糕糯米</h3>
                 <p class="red font14" style="padding-left:10px;">￥328.0</p>
                 <img src="images/豆沙年糕糯米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/GiftListServlet1?s=玉如意">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">伊路香随</h3>
                 <p class="red font14" style="padding-left:10px;">￥369.9</p>
                 <img src="images/伊路香随.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=5">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香米饵丝香米</h3>
                 <p class="red font14" style="padding-left:10px;">￥129.9</p>
                 <img src="images/香米饵丝香米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=6">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">牛排</h3>
                 <p class="red font14" style="padding-left:10px;">￥79.9</p>
                 <img src="images/牛排.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=7">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">美厨佳宴</h3>
                 <p class="red font14" style="padding-left:10px;">￥299.9</p>
                 <img src="images/美厨佳宴.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=8">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">玉米饵块玉米</h3>
                 <p class="red font14" style="padding-left:10px;">￥369.9</p>
                 <img src="images/玉米饵块玉米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=9">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">牛仔骨切片</h3>
                 <p class="red font14" style="padding-left:10px;">￥99.9</p>
                 <img src="images/牛仔骨切片.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=10">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">贺岁佳肴</h3>
                 <p class="red font14" style="padding-left:10px;">￥688.0</p>
                 <img src="images/贺岁佳肴.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=11">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">草原情奶片</h3>
                 <p class="red font14" style="padding-left:10px;">￥49.9</p>
                 <img src="images/草原情奶片.jpg" width="105" height="118" style="margin:0 auto">
@@ -222,52 +251,52 @@
     <div class="width100 hidden_yh" style="height:388px;">
     	<!-- <a href="/GiftFamily/CommodityServlet?giftId=53" style="width:227px;height:388px;float:left;"><img src="images/dianzicheng.jpg"></a> -->
         <div class="normalPic">
-        	<a href="/GiftFamily/CommodityServlet?giftId=12">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">电子时钟</h3>
                 <p class="red font14" style="padding-left:10px;">￥19.9</p>
                 <img src="images/dianzishizhong.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=13">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">蝴蝶灯</h3>
                 <p class="red font14" style="padding-left:10px;">￥39.8</p>
                 <img src="images/hudiedeng.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=14">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">计步器</h3>
                 <p class="red font14" style="padding-left:10px;">￥29.9</p>
                 <img src="images/jibuqi.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=15">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">LED挂件</h3>
                 <p class="red font14" style="padding-left:10px;">￥9.9</p>
                 <img src="images/LEDguajian.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=16">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">企鹅台灯</h3>
                 <p class="red font14" style="padding-left:10px;">￥35.9</p>
                 <img src="images/qietaideng.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=17">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">电子体温计</h3>
                 <p class="red font14" style="padding-left:10px;">￥15.0</p>
                 <img src="images/tiwenji.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=18">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">迷你小手电</h3>
                 <p class="red font14" style="padding-left:10px;">￥9.9</p>
                 <img src="images/xiaoshoudian.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=19">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">小台灯</h3>
                 <p class="red font14" style="padding-left:10px;">￥19.9</p>
                 <img src="images/xiaotaideng.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=20">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">小音箱</h3>
                 <p class="red font14" style="padding-left:10px;">￥49.9</p>
                 <img src="images/xiaoyinxiang.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=21">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">智能手表</h3>
                 <p class="red font14" style="padding-left:10px;">￥139.9</p>
                 <img src="images/zhinengshoubiao.jpg" width="105" height="118" style="margin:0 auto">
@@ -285,52 +314,52 @@
     <div class="width100 hidden_yh" style="height:388px;">
     	<!-- <a href="/GiftFamily/CommodityServlet?giftId=54" style="width:227px;height:388px;float:left;"><img src="images/lutouxianglian.jpg"></a> -->
         <div class="normalPic">
-        	<a href="/GiftFamily/CommodityServlet?giftId=42">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">贺岁佳肴</h3>
                 <p class="red font14" style="padding-left:10px;">￥268.0</p>
                 <img src="images/贺岁佳肴.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/GiftFamily/CommodityServlet?giftId=43">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">京肴</h3>
                 <p class="red font14" style="padding-left:10px;">￥156.0</p>
                 <img src="images/京肴.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=44">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">美厨佳宴</h3>
                 <p class="red font14" style="padding-left:10px;">￥49.0</p>
                 <img src="images/美厨佳宴.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=45">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">伊路香随</h3>
                 <p class="red font14" style="padding-left:10px;">￥218.0</p>
                 <img src="images/伊路香随.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=46">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">豆沙年糕 糯米</h3>
                 <p class="red font14" style="padding-left:10px;">￥169.0</p>
                 <img src="images/豆沙年糕糯米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=47">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香米饵块香米</h3>
                 <p class="red font14" style="padding-left:10px;">￥28.0</p>
                 <img src="images/香米饵块香米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=48">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香米饵丝香米</h3>
                 <p class="red font14" style="padding-left:10px;">￥90.0</p>
                 <img src="images/香米饵丝香米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=49">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香米小粑粑香米</h3>
                 <p class="red font14" style="padding-left:10px;">￥36.0</p>
                 <img src="images/香米小粑粑香米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=50">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">玉米饵块玉米</h3>
                 <p class="red font14" style="padding-left:10px;">￥86.0</p>
                 <img src="images/玉米饵块玉米.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=51">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">玉米小粑粑玉米</h3>
                 <p class="red font14" style="padding-left:10px;">￥39.0</p>
                 <img src="images/玉米小粑粑玉米.jpg" width="105" height="118" style="margin:0 auto">
@@ -348,52 +377,52 @@
     <div class="width100 hidden_yh" style="height:388px;">
     	<!-- <a href="/shop/CommodityServlet?giftId=55" style="width:227px;height:388px;float:left;"><img src="images/beijingkaoya.jpg"></a> -->
         <div class="normalPic">
-        	<a href="/shop/CommodityServlet?giftId=22">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">熟食套餐</h3>
                 <p class="red font14" style="padding-left:10px;">￥2299.9</p>
                 <img src="images/shushitaocan.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=23">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">红烧牛肉</h3>
                 <p class="red font14" style="padding-left:10px;">￥18.8</p>
                 <img src="images/hongshaoniurou.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=24">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">清香牛肉</h3>
                 <p class="red font14" style="padding-left:10px;">￥58.0</p>
                 <img src="images/qingxiangniurou.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=25">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">五香酱鸡</h3>
                 <p class="red font14" style="padding-left:10px;">￥259.9</p>
                 <img src="images/wuxiangjiangji.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=26">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香叶牛腱</h3>
                 <p class="red font14" style="padding-left:10px;">￥19.8</p>
                 <img src="images/xiangyeniujian.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=27">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">北京烤鸭</h3>
                 <p class="red font14" style="padding-left:10px;">￥299.9</p>
                 <img src="images/beijingkaoya.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=28">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">香辣牛肉</h3>
                 <p class="red font14" style="padding-left:10px;">￥1088.0</p>
                 <img src="images/xianglaniurou.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=29">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">红烧牛腱</h3>
                 <p class="red font14" style="padding-left:10px;">￥369.0</p>
                 <img src="images/hongshaoniujian.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=30">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">红烧牛肉</h3>
                 <p class="red font14" style="padding-left:10px;">￥199.0</p>
                 <img src="images/hongshaoniurou.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=31">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">清香牛肉</h3>
                 <p class="red font14" style="padding-left:10px;">￥158.0</p>
                 <img src="images/qingxiangniurou.jpg" width="105" height="118" style="margin:0 auto">
@@ -411,52 +440,52 @@
     <div class="width100 hidden_yh" style="height:388px;">
     	<!-- <a href="/shop/CommodityServlet?giftId=56" style="width:227px;height:388px;float:left;"><img src="images/hei.jpg"></a> -->
         <div class="normalPic">
-        	<a href="/shop/CommodityServlet?giftId=32">
+        	<a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">创意糕点</h3>
                 <p class="red font14" style="padding-left:10px;">￥59.9</p>
                 <img src="images/chuangyigaodian.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=33">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">蛋黄酥</h3>
                 <p class="red font14" style="padding-left:10px;">￥49.0</p>
                 <img src="images/danhuangsu.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=34">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">海鲜零食</h3>
                 <p class="red font14" style="padding-left:10px;">￥138.0</p>
                 <img src="images/haixianlingshi.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=35">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">坚果大礼包</h3>
                 <p class="red font14" style="padding-left:10px;">￥76.9</p>
                 <img src="images/jianguodalibao.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=36">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">零食礼包</h3>
                 <p class="red font14" style="padding-left:10px;">￥56.0</p>
                 <img src="images/lingshilibao.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=37">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">绿豆糕</h3>
                 <p class="red font14" style="padding-left:10px;">￥35.9</p>
                 <img src="images/lvdougao.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=38">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">马卡龙</h3>
                 <p class="red font14" style="padding-left:10px;">￥39.9</p>
                 <img src="images/makalong.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=39">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">巧克力礼包</h3>
                 <p class="red font14" style="padding-left:10px;">￥129.0</p>
                 <img src="images/qiaokeli.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=40">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">桃酥饼</h3>
                 <p class="red font14" style="padding-left:10px;">￥29.9</p>
                 <img src="images/taosubing.jpg" width="105" height="118" style="margin:0 auto">
             </a>
-            <a href="/shop/CommodityServlet?giftId=41">
+            <a href="detailShow.jsp">
             	<h3 class="yihang c_33 font14 font100" style="padding-left:10px;padding-right:10px;margin-top:10px;">鲜花饼</h3>
                 <p class="red font14" style="padding-left:10px;">￥36.9</p>
                 <img src="images/xianhuabing.jpg" width="105" height="118" style="margin:0 auto">
@@ -464,14 +493,10 @@
         </div>
     </div>
 </div>
-<!--品质保证-->
-<!-- <div class="width1200 center_yh" style="height:130px;margin-top:60px;">
-	<img src="images/db.png">
-</div> -->
 <!--页脚-->
 <div class="width100 hidden_yh" style="background:#66c561;margin-top:90px;">
 	<div class="width1200 center_yh tcenter" style="margin-top:44px;">
-    	<a href="#a" class="in_block font16 c_33" style="padding:0 30px">热销商品</a>
+    	<a href="detailShow.jsp" class="in_block font16 c_33" style="padding:0 30px">热销商品</a>
         <a href="#b" class="in_block font16 c_33" style="padding:0 30px">美食推荐</a>
         <a href="#c" class="in_block font16 c_33" style="padding:0 30px">店铺推荐</a>
         <a href="#d" class="in_block font16 c_33" style="padding:0 30px">清真百科</a>
@@ -481,5 +506,35 @@
         <p class="font16 c_33 tcenter" style="margin-top:6px;margin-bottom:10px;">宁ICP备:1218486号-1</p>
     </div>
 </div>
+
+</div>
 </body>
+<script type="text/javascript">
+    function LoginCheck() {
+        $.ajax({
+            url : "/user/getUserInfo.do",
+            type : "POST",
+            dataType	: "json",
+            success     : function(res){
+                //请求成功
+                if(0 === res.status){
+                    window.location.href='http://qingzhenwei.natapp1.cc/peopleCenter.jsp';
+                }
+                //无登陆状态，需要强制登陆
+                else if(10 === res.status){
+                    alert(res.msg);
+                }
+                //请求数据错误
+                else if(1  === res.status){
+                    alert(res.msg);
+                }
+
+            },
+            error       : function(err){
+                alert(err.statusText);
+            }
+
+        });
+    }
+</script>
 </html>

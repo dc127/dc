@@ -51,16 +51,61 @@
             	<div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">订单管理</div>
                 <div class="width40 font24" style="height:28px;width:36px;margin-top:48px;margin-left:130px;">
                     <select id="select1">
-                        <option value="productId">按订单号查询</option>
-                        <option selected value="prductName">按收件人姓名查询</option>
+                        <option selected value="orderNo">按订单号查询</option>
+                        <%--<option  value="prductName">按收件人姓名查询</option>--%>
                     </select>
                 </div>
-                <div class="width60 font24" style="height:28px;width:516px;border:1px solid #66c561;margin-top:-32px;margin-left:280px;">
+                <div class="width60 font24" style="height:28px;width:316px;border:1px solid #66c561;margin-top:-32px;margin-left:280px;">
                     <form>
                         <input type="text" placeholder="关键词查询" class="searCh">
-                        <input type="button" class="btnSearh" value="搜索" onclick="search1();">
+                        <input type="button" class="btnSearh" value="搜索" onclick="search2();">
                     </form>
                 </div>
+                <script type="text/javascript">
+                    function search2() {
+                        var option1 = $("#select1 option:selected").val();
+                        var searCh21 = $(".searCh").val();
+                        $.ajax({
+                            url : "/manage/order/search.do?"+option1+"="+searCh21,
+                            type : "GET",
+                            async : true,
+                            dataType : 'json',
+                            success : function(res) {
+                                var status = res.status;
+                                if(status==0){
+                                var data = res.data;
+                                var list = data.list;
+                                if(list==""||list==null){
+                                    alert("搜索的东西不存在");
+                                }
+                                $("#productSelect div:gt(1)").hide();
+                                for (var i = 0; i < list.length; i++) {
+                                    var orderNo = list[i].orderNo;
+                                    var receiverName = list[i].receiverName;
+                                    var payment = list[i].payment;
+                                    var statusDesc = list[i].statusDesc;
+                                    var createTime = list[i].createTime;
+                                    $("#productSelect").append("<div  id=\"" + orderNo + "\" class=\"width120 hidden_yh\" style=\"padding-top:20px;padding-bottom:20px;\">\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20\">" + orderNo + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20\">" +receiverName+"</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 red width20\">" + statusDesc + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20\">" + payment + "</div>\n" +
+                                        /* "            <div class=\"left_yh tcenter font16 c_66 width20\">" + createTime + "</div>\n" +*/
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20 hidden_yh\">\n" +
+                                        "                <a href=\"orderDetail.jsp?orderNo="+orderNo+"\" class=\"c_33 onHover\">查看</a>\n"+
+                                        "            </div>\n" +
+                                        "        </div>");
+                                }
+                                }else {
+                                alert(res.msg);
+                                }
+                            },
+                            error : function (err) {
+                                alert(err.msg);
+                            }
+                        });
+                    }
+                </script>
                 <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;margin-top:26px;"id="productSelect">
                     <div class="width120" style="height:60px;line-height:60px;border-bottom:1px solid #ddd;background:#faf5f5;">
                         <div class="left_yh tcenter font20 width20">订单号</div>

@@ -49,14 +49,14 @@
         <div id="vipRight">
             <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;">
             	<div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">商品管理</div>
-                    <button class="width40" style="height:28px;width:100px;margin-top:30px;margin-left:800px;"><a href="addProduct.jsp" style="color: #1d1d1d">添加商品</a></button>
-                <div class="width40 font24" style="height:28px;width:36px;margin-top:-25px;margin-left:70px;">
+                    <button class="" style="height:28px;width: 70px;margin-top:30px;margin-left:110px;"><a href="addProduct.jsp" style="color: #1d1d1d">添加商品</a></button>
+                <div class="width40 font24" style="height:28px;width: 122px;margin-top:-25px;margin-left:200px;">
                             <select id="select1">
                                 <option value="productId">按商品Id查询</option>
                                 <option selected value="prductName">按商品名称查询</option>
                             </select>
                 </div>
-                        <div class="width60 font24" style="height:28px;width:516px;border:1px solid #66c561;margin-top:-32px;margin-left:200px;">
+                        <div class="width60 font24" style="height:28px;width: 320px;border:1px solid #66c561;margin-top:-32px;margin-left:350px;">
                             <form>
                                 <input type="text" placeholder="关键词查询" class="searCh">
                                 <input type="button" class="btnSearh" value="搜索" onclick="search1();">
@@ -176,8 +176,8 @@
                             "            <div class=\"left_yh tcenter font16 red width20\">" + price + "</div>\n" +
                             "            <div class=\"left_yh tcenter font16 c_66 width20\">" + status1 + "</div>\n" +
                             "            <div class=\"left_yh tcenter font16 c_66 width20 hidden_yh\">\n" +
-                            "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">查看</a>\n"+
-                            "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">编辑</a>\n" +
+                            "                <a href='seeProduct.jsp?id=" + id + "'  class=\"c_33 onHover\">查看</a>\n"+
+                            "                <a href='updateProduct.jsp?id=" + id + "' class=\"c_33 onHover\">编辑</a>\n" +
                             "            </div>\n" +
                             "        </div>");
                     }

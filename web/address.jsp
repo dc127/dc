@@ -1,28 +1,31 @@
 <%@page import="java.util.List"%>
-<%@page import="org.lanqiao.enetity.Address"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>收货地址</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.luara.0.0.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>收货地址</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.luara.0.0.1.min.js"></script>
+    <script src="js/loginOrOut.js"></script><%--登录登出的js--%>
 </head>
 <body>
 <div class="width100" style="height:25ox;background:#f0f0f0;">
-	<div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
-    	<font class="left_yh">欢迎来到清真的味道•商城</font>
+    <div class="width1200 center_yh font14 c_66" style="height:25px;line-height:25px;">
+        <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
-        	<a href="login1.jsp">登录</a>
-            <b></b>
-            <a href="enroll1.jsp">注册</a>
-            <b></b>
-            <a href="address.jsp">个人中心</a>
-            <b></b>
-            
+            <div class="login">
+                <a href="#">欢迎您,${sessionScope.currentUser.username }</a>
+                <b></b>
+                <a onclick="Logout();">退出</a>
+            </div>
+            <div class="not-login">
+                <a href="login.jsp">登录</a>
+                <b></b>
+                <a href="enroll.jsp">注册</a>
+            </div>
         </div>
     </div>
 </div>
@@ -96,7 +99,7 @@
         <!--普通导航-->
            <div class="left_yh font16" id="pageNav">
         	<a href="index.jsp">首页</a>
-            <a href="#a">热销商品</a>
+            <a href="detailShow.jsp">热销商品</a>
             <a href="#b">电子礼品</a>
             <a href="#c">礼盒类产品</a>
             <a href="#d">高温熟食</a>
@@ -111,14 +114,14 @@
 <div class="width100 hidden_yh" style="background:#66c561;padding-top:34px;padding-bottom:34px;">
 	<div class="width1200 hidden_yh center_yh">
     	<div id="vipNav">
-        	  		<a href="peopleCenter.jsp" class="on">账户总览</a>
+        	  		<a href="peopleCenter.jsp" >账户总览</a>
             <a href="peopleMessage.jsp">个人信息</a>
             <a href="order.jsp">我的订单</a>
-            <a href="collect.jsp">商品收藏</a>
+            <%--<a href="collect.jsp">商品收藏</a>--%>
             <a href="shopCar.jsp">我的购物车</a>
             <a href="password.jsp">修改密码</a>
-            <a href="after-sales.jsp">售后管理</a>
-            <a href="FindAllAddressServlet">收货地址</a>
+            <%--<a href="after-sales.jsp">售后管理</a>--%>
+            <a href="address.jsp" class="on">收货地址</a>
         </div>
         <div id="vipRight">
             <div class="font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;width:938px;border:1px solid #ddd;">
@@ -172,32 +175,50 @@
 				<script src="js/area.js"></script>
                 <script src="js/select.js"></script>
             </div>
-            <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;margin-top:26px;">
+            <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;margin-top:26px;"id="addressSelect">
                 <div class="width100" style="height:60px;line-height:60px;border-bottom:1px solid #ddd;background:#faf5f5;">
                 	<div class="left_yh tcenter font20 width25">地址</div>
                     <div class="left_yh tcenter font20 width25">收货人</div>
                     <div class="left_yh tcenter font20 width25">联系电话</div>
                     <div class="left_yh tcenter font20 width25">操作</div>
                 </div>
-                <!--一条-->
-                	<div class="width100 hidden_yh" style="padding-top:20px;padding-bottom:20px;">          
-                <%
-                List<Address> ads = (List<Address>)request.getAttribute("ads");
-                if(ads!=null){
-                	for(int i=0;i<ads.size();i++){
-            		out.print("<div class='left_yh tcenter font16 c_66 width25'>"+ads.get(i).getArea()+ads.get(i).getAddress()+"</div>");
-                    out.print("<div class='left_yh tcenter font16 red width25'>"+ads.get(i).getUsername()+"</div>"); 
-                    out.print("<div class='left_yh tcenter font16 c_66 width25'>"+ads.get(i).getTelephone()+"</div>"); 
-                   %>
-                    <div class='left_yh tcenter font16 c_66 width25 hidden_yh'>
-                    <%out.print("<a class='c_33 onHover' href=DeleteAddressByNameServlet?username="+ads.get(i).getUsername()+">删除</a>");%>
-                 	</div>
-                 	<%
-                     		}
-                }
-                %>                                                
-                </div>
-            </div>                                          
+                <script type="text/javascript">
+                    $(function () {
+                        $.ajax({
+                            url : "shipping/list.do",
+                            type : "GET",
+                            dataType	: "json",
+                            success     : function(res) {
+                                var status = res.status;
+                                var data = res.data;
+                                var list = data.list;
+                                for (var i = 0; i < list.length; i++) {
+                                    var shippingId = list[i].id;
+                                    var receiverName = list[i].receiverName;//收货人
+                                    var receiverMobile = list[i].receiverMobile;//手机号
+                                    var receiverProvince = list[i].receiverProvince;//省
+                                    var receiverCity = list[i].receiverCity;//城市
+                                    var receiverAddress = list[i].receiverAddress;//具体地址
+                                    var address = receiverProvince+"省" + receiverCity +"市"+ receiverAddress;
+                                    $("#addressSelect").append("<div  id=\"" + shippingId + "\" class=\"width100 hidden_yh\" style=\"padding-top:20px;padding-bottom:20px;\">\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width25\">" + address + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 red width25\">" + receiverName + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width25\">" + receiverMobile + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width25 hidden_yh\">\n" +
+                                        "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">编辑</a>\n"+
+"                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">删除</a>\n" +
+                                        "                <a id=\"selectAdrees" + i + "\" class=\"c_33 onHover\">设为默认</a>\n" +
+                                        "            </div>\n" +
+                                        "        </div>");
+                                }
+                            },
+                                error       : function(err){
+                                    alert(err.statusText);
+                                }
+                            })
+                    })
+                </script>
+            </div>
     	</div>
     </div>    
 </div>
