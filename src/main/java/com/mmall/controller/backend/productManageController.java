@@ -62,6 +62,26 @@ public class productManageController {
     }
 
     /**
+     * 通过ID删除用户
+     * @param session
+     * @param id
+     * @return
+     */
+    /*@RequestMapping(value = "deleteById.do",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse deleteById(HttpSession session,Integer id){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
+        }
+        if(iUserService.checkAdminRole(user).isSuccess()){
+            //填充业务逻辑
+            return iProductService.deleteById(id);
+        }else {
+            return ServerResponse.createByErrorMessage("无权操作");
+        }
+    }*/
+    /**
      * 产品上下架
      * @param session
      * @param productId

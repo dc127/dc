@@ -80,7 +80,7 @@
         </div>
         <div id="vipRight">
             <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;">
-                <div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">商品管理——新增商品</div>
+                <div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">商品管理——修改商品</div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品名称：</div>
                     <input type="text" style="width:443px;height:30px;text-indent:10px;" name="productName" placeholder="请输入商品名称">
@@ -93,7 +93,7 @@
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">所属分类：</div>
                     <select id="select2">
-                        <option selected value="10004">食品类</option>
+                        <option selected value="10004">选择一级分类</option>
                     </select>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
@@ -169,6 +169,29 @@
                     }
                 })
             });
+        //获取信息
+        $.ajax({
+            url: "/manage/product/detail.do",
+            type: 'GET',
+            data: {productId:${param.id}},
+            dataType:"json",
+            success: function(res){
+                if(res.status == 0){
+                    var data = res.data;
+                    /* $("#select2 option:selected").val(data.categoryId);*/
+                    $("input[name='productName']").val(data.name);
+                    $("input[name='subtitle']").val(data.subtitle);
+                    /*    $("input[name='upload_file']").val(data.mainImage);
+                          $("input[name='upload_file']").val(data.subImages);
+                        $("textarea[name='editor01']").val(data.detail);*/
+                    $("input[name='price']").val(data.price);
+                    $("input[name='stock']").val(data.stock);
+                }
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        })
         //提交
         $("#fbtn").click(function(){
         var categoryId = $("#select2 option:selected").val();
@@ -180,10 +203,11 @@
         var price = $("input[name='price']").val();
         var stock = $("input[name='stock']").val();
         var status =1;
+        var id = ${param.id};
             $.ajax({
                 url: "/manage/product/productSave.do",
                 type: 'GET',
-                data: {categoryId:categoryId,name:name,subtitle:subtitle,mainImage:mainImage,subImages:subImages,detail:detail,price:price,stock:stock,status:status},
+                data: {categoryId:categoryId,name:name,subtitle:subtitle,mainImage:mainImage,subImages:subImages,detail:detail,price:price,stock:stock,status:status,id:id},
                dataType:"json",
                 success: function(res){
                     alert(res.msg);

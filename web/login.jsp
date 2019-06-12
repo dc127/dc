@@ -34,7 +34,7 @@
 	<div class="width1200 center_yh hidden_yh">
     	<a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
         <div class="right_yh" style="height:28px;width:316px;border:2px solid #66c561;margin-top:48px;">
-        	<form action="GiftListServlet" method="post">
+        	<form action="#" method="post">
                 <input type="text" placeholder="关键词查询" class="searCh" name="s">
                 <input type="submit" class="btnSearh" value="搜索">
             </form>
@@ -61,8 +61,8 @@
         <div class="hui_login-kuan">
           <label><span class="hui_login-kuan_span02"></span></label>
           <input name="password" id="password" type="password" class="login-input">
-            <a href=""  size="40"><input name="adminOrUser" type="radio" value="0" checked="checked">用户</a>
-            <a><input name="adminOrUser"  type="radio" value="1">管理员</a>
+            <label style="color: #FFFFFF"  size="40"><input name="adminOrUser" type="radio" value="0" checked="checked">用户</label>
+            <label style="color: #FFFFFF"><input name="adminOrUser"  type="radio" value="1">管理员</label>
         </div>
         <p class="hui_login_pp"><a href="">忘记登录密码？</a></p>
         <div class="hui_login_boot">
@@ -113,7 +113,7 @@
     })
     function FormSubmit() {
         var adminOrUser = $("input[name='adminOrUser']:checked").val();
-        alert(adminOrUser);
+        // alert(adminOrUser);
         if(adminOrUser==1){
             $.ajax({
                 type  		: "POST",
@@ -123,7 +123,7 @@
                 success     : function(res){
                     //请求成功
                     if(0==res.status){
-                        alert("登录成功");
+                        // alert("登录成功");
                         window.location.href='http://qingzhenwei.natapp1.cc/view/productShow.jsp';
                     }
                     //无登陆状态，需要强制登陆

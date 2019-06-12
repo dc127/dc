@@ -93,7 +93,7 @@
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">所属分类：</div>
                     <select id="select2">
-                        <option selected value="10004">选择一级分类</option>
+                        <option selected value="10004">食品类</option>
                     </select>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">

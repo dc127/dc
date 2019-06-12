@@ -62,6 +62,14 @@
                     <input type="text" style="width:243px;border:none;outline:none;height:30px;text-indent:10px;" name="receiverName" readonly>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
+                    <div class="left_yh font16 tright" style="width:120px;">收件人手机号：</div>
+                    <input type="text" style="width:243px;border:none;outline:none;height:30px;text-indent:10px;" name="receiverMobile" readonly>
+                </div>
+                <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
+                    <div class="left_yh font16 tright" style="width:120px;">收件人地址：</div>
+                    <input type="text" style="width:243px;border:none;outline:none;height:30px;text-indent:10px;" name="address" readonly>
+                </div>
+                <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">订单状态：</div>
                         <input type="text" style="width:83px;border:none;outline:none;height:30px;text-indent:10px;" name="statusDesc" readonly>
                     <button id="fahuo">立即发货</button>
@@ -126,12 +134,21 @@
                     var imageHost = data.imageHost;
                     var payment = data.payment;
                     var paymentTypeDesc = data.paymentTypeDesc;
+                    var shippingVo = data.shippingVo;
+                    var receiverName = shippingVo.receiverName;//收货人
+                    var receiverMobile = shippingVo.receiverMobile;//手机号
+                    var receiverProvince = shippingVo.receiverProvince;//省
+                    var receiverCity = shippingVo.receiverCity;//城市
+                    var receiverAddress = shippingVo.receiverAddress;//具体地址
+                    var address = receiverProvince+"省" + receiverCity +"市"+ receiverAddress;
                     $("input[name='orderNo']").val(orderNo);
                     $("input[name='createTime']").val(createTime);
                     $("input[name='receiverName']").val(receiverName);
                     $("input[name='statusDesc']").val(statusDesc);
                     $("input[name='paymentTypeDesc']").val(paymentTypeDesc);
                     $("input[name='payment']").val(payment);
+                    $("input[name='receiverMobile']").val(receiverMobile);
+                    $("input[name='address']").val(address);
                     if(statusDesc!="已付款"){
                     $("#fahuo").hide();
                     }
@@ -152,10 +169,31 @@
                             "            <div class=\"left_yh tcenter font16 c_66 width20 hidden_yh\">\n" +totalPrice+               "            </div>\n" +
                             "        </div>");
                     }
+
                 },
                 error       : function(err){
                     alert(err.statusText);
                 }
+            })
+            //订单发货
+            $("#fahuo").click(function () {
+                $.ajax({
+                    url : "/manage/order/send_goods.do",
+                    type : "GET",
+                    data:{orderNo:${param.orderNo}},
+                    dataType	: "json",
+                    success     : function(res) {
+                        if(res.status==0){
+                        alert(res.data);
+                        window.location.reload();
+                        }else {
+                            alert(res.data);
+                        }
+                    },
+                    error       : function(err){
+                        alert(err.statusText);
+                    }
+                })
             })
         })
 </script>

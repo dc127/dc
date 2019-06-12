@@ -80,46 +80,46 @@
         </div>
         <div id="vipRight">
             <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;">
-                <div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">商品管理——新增商品</div>
+                <div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">商品管理——查看商品</div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品名称：</div>
-                    <input type="text" style="width:443px;height:30px;text-indent:10px;" name="productName" placeholder="请输入商品名称">
+                    <input type="text" style="width:443px;height:30px;text-indent:10px;" name="productName" placeholder="请输入商品名称" readonly>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品描述：</div>
                     <input type="text" style="width:443px;height:30px;text-indent:10px;" name="subtitle"
-                           placeholder="请输入商品描述">
+                           placeholder="请输入商品描述" readonly>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">所属分类：</div>
                     <select id="select2">
-                        <option selected value="10004">食品类</option>
+                        <option selected value="10004" readonly>选择一级分类</option>
                     </select>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品价格：</div>
-                    <input type="text" style="width:160px;height:30px;text-indent:10px;" name="price" placeholder="价格">元
+                    <input type="text" style="width:160px;height:30px;text-indent:10px;" name="price" placeholder="价格" readonly>元
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品库存：</div>
-                    <input type="text" style="width:160px;height:30px;text-indent:10px;" name="stock" placeholder="库存"><font>件</font>
+                    <input type="text" style="width:160px;height:30px;text-indent:10px;" name="stock" placeholder="库存" readonly><font>件</font>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品图片：</div>
                     <form name="form2" id="myform" enctype="multipart/form-data" >
-                        <input type="file" name="upload_file" >
-                        <input type="submit" id="upload" value="点我上传"/>
+                        <input type="file" name="upload_file" readonly>
+                        <input type="submit" id="upload" value="点我上传" readonly/>
                     </form>
                 </div>
                 <div class="width100" style="height:30px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">商品详情：</div>
                 </div>
                 <div class="width80" style="height:500px;line-height:32px;margin-left:125px;margin-top:-25px;">
-                    <textarea  id="scpg" name="editor01"></textarea>
+                    <textarea  id="scpg" name="editor01" readonly></textarea>
                 </div>
-                <div class="width80" style="height:50px;line-height:32px;margin-left:125px;margin-top:-40px;">
+                <%--<div class="width80" style="height:50px;line-height:32px;margin-left:125px;margin-top:-40px;">
                     <input type="button" value="提交" id="fbtn">
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>
@@ -169,32 +169,28 @@
                     }
                 })
             });
-        //提交
-        $("#fbtn").click(function(){
-        var categoryId = $("#select2 option:selected").val();
-        var name= $("input[name='productName']").val();
-        var subtitle = $("input[name='subtitle']").val();
-        var mainImage = $("input[name='upload_file']").val();
-        var subImages = $("input[name='upload_file']").val();
-        var detail = $("textarea[name='editor01']").val();
-        var price = $("input[name='price']").val();
-        var stock = $("input[name='stock']").val();
-        var status =1;
             $.ajax({
-                url: "/manage/product/productSave.do",
+                url: "/manage/product/detail.do",
                 type: 'GET',
-                data: {categoryId:categoryId,name:name,subtitle:subtitle,mainImage:mainImage,subImages:subImages,detail:detail,price:price,stock:stock,status:status},
+                data: {productId:${param.id}},
                dataType:"json",
                 success: function(res){
-                    alert(res.msg);
-                    window.location.href="http://qingzhenwei.natapp1.cc/view/productShow.jsp";
+                    if(res.status == 0){
+                    var data = res.data;
+                     /* $("#select2 option:selected").val(data.categoryId);*/
+                        $("input[name='productName']").val(data.name);
+                        $("input[name='subtitle']").val(data.subtitle);
+                   /*    $("input[name='upload_file']").val(data.mainImage);
+                         $("input[name='upload_file']").val(data.subImages);
+                       $("textarea[name='editor01']").val(data.detail);*/
+                         $("input[name='price']").val(data.price);
+                       $("input[name='stock']").val(data.stock);
+                    }
                 },
                 error: function (err) {
                     alert(err.statusText);
                 }
             })
-        })
-
     })
 </script>
 

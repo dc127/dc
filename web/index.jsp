@@ -135,22 +135,6 @@
     <a href="#" class="right_yh block_yh" style="width:73px;height:45px;"></a>
 </div>
 <!--今日推荐js-->
-<script>
-   /* $(function(){
-        $.ajax({
-            url : "",
-            type : "POST",
-            dataType	: "json",
-            success     : function(res){
-
-            },
-            error       : function(err){
-                alert(err.statusText);
-            }
-
-        });
-    });*/
-</script>
 <div class="width1200 center_yh" style="margin-top:20px;">
 
     <div class="tjgoods">
@@ -170,7 +154,7 @@
         <a href="detailShow.jsp">
             <img src="images/hongshaoniurou.jpg" width="105" height="118">
             <h4 class="yihang">红烧牛肉</h4>
-            <p class="red tcenter">￥18.8</p>
+                <p class="red tcenter">￥18.8</p>
         </a>
             <%--一条--%>
         <a href="detailShow.jsp">

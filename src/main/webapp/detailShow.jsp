@@ -389,7 +389,7 @@
 <script type="text/javascript">
     $(function () {
         $.ajax({
-            url: "/manage/product/list.do",
+            url: "/product/list.do?keyword&categoryId=100004&orderBy=price_desc",
             type : "GET",
             dataType : 'json',
             success : function(res){

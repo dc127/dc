@@ -132,7 +132,7 @@
          	</div>
             <div class="bj_fff hidden_yh" style="width:838px;border:1px solid #ddd;margin-top:29px;padding:50px;">
             	<h3 class="font20 font100 c_33">编辑地址</h3>
-            	<form action="AddAddressServlet" method="post">
+            	<form action="" method="get">
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 	<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>收货地区：</div>
                     <div class="left_yh">
@@ -168,8 +168,9 @@
                 	<input type="checkbox">&nbsp;设为默认
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:10px;">
-                	<input type="submit" value="确定" class="left_yh block_yh font16 tcenter ff5802" style="width:112px;height:33px;line-height:33px;margin-left:120px;">
-                    <input type="reset" value="取消" class="left_yh block_yh font16 tcenter onfff" style="width:112px;height:33px;line-height:33px;margin-left:17px;">
+                	<input type="submit" value="确定" class="left_yh block_yh font16 tcenter ff5802" style="width:112px;height:33px;line-height:33px;margin-left:120px;" name="queding">
+                    <input type="submit" value="修改" class="left_yh block_yh font16 tcenter ff5802" style="width:112px;height:33px;line-height:33px;margin-left:120px;" name="xiugai">
+                    <input type="reset" value="取消" class="left_yh block_yh font16 tcenter onfff" style="width:112px;height:33px;line-height:33px;margin-left:17px;" >
                 </div>
 				</form>
 				<script src="js/area.js"></script>
@@ -184,6 +185,40 @@
                 </div>
                 <script type="text/javascript">
                     $(function () {
+                        $("input[name='xiugai']").hide();
+                        //添加地址
+                        $("input[name='queding']").click(function () {
+                            var userId=${sessionScope.currentUser.id};
+                            var receiverName = $("input[name='username']").val();
+                            var receiverPhone = $("input[name='telephone']").val();
+                            var receiverMobile = $("input[name='telephone']").val();
+                            var receiverProvince = $("#province").val();
+                            var receiverCity = $("#city").val()+$("#town").val();
+                            var receiverAddress = $("input[name='address']").val();
+                            var receiverZip = $("input[name='postcode']").val();
+                            if(receiverName!=""&receiverPhone!=""&receiverMobile!=""
+                                &receiverProvince!=""&receiverCity!=""&receiverAddress!=""&receiverZip!=""){
+                                $.ajax({
+                                    url : "shipping/add.do",
+                                    type : "GET",
+                                    data :{userId:userId,receiverName:receiverName,receiverPhone:receiverPhone,receiverMobile:receiverMobile,receiverProvince:receiverProvince,receiverCity:receiverCity,receiverAddress:receiverAddress,receiverZip:receiverZip},
+                                    dataType	: "json",
+                                    success     : function(res) {
+                                        var status = res.status;
+                                        if(status==0){
+                                            alert(res.msg);
+                                        }
+                                    },
+                                    error       : function(err){
+                                        alert(err.statusText);
+                                    }
+                                })
+                            }else {
+                                alert("请填写正确的地址信息");
+                            }
+
+                        })
+                        //获取地址
                         $.ajax({
                             url : "shipping/list.do",
                             type : "GET",
@@ -200,17 +235,81 @@
                                     var receiverCity = list[i].receiverCity;//城市
                                     var receiverAddress = list[i].receiverAddress;//具体地址
                                     var address = receiverProvince+"省" + receiverCity +"市"+ receiverAddress;
+                                    var receiverDistrict = list[i].receiverDistrict;
+                                    var receiverZip = list[i].receiverZip;
                                     $("#addressSelect").append("<div  id=\"" + shippingId + "\" class=\"width100 hidden_yh\" style=\"padding-top:20px;padding-bottom:20px;\">\n" +
                                         "            <div class=\"left_yh tcenter font16 c_66 width25\">" + address + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 red width25\">" + receiverName + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 c_66 width25\">" + receiverMobile + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 c_66 width25 hidden_yh\">\n" +
-                                        "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">编辑</a>\n"+
-"                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">删除</a>\n" +
-                                        "                <a id=\"selectAdrees" + i + "\" class=\"c_33 onHover\">设为默认</a>\n" +
+                                        "                <a  href=\"javascript:void(0)\" name='update' class=\"c_33 onHover\">编辑</a>\n"+
+"                <a href=\"javascript:void(0)\" name='del' class=\"c_33 onHover\">删除</a>\n" +
+                                       /* "                <a id=\"selectAdrees" + i + "\" class=\"c_33 onHover\">设为默认</a>\n" +*/
                                         "            </div>\n" +
                                         "        </div>");
                                 }
+                                $("a[name='del']").click(function () {
+                                    $.ajax({
+                                        url : "shipping/del.do",
+                                        type : "GET",
+                                        data :{shippingId:shippingId},
+                                        dataType	: "json",
+                                        success     : function(res) {
+                                                alert(res.data);
+                                            window.location.reload();
+                                        },
+                                        error       : function(err){
+                                            alert(err.statusText);
+                                        }
+                                    })
+                                })
+                                $("a[name='update']").click(function () {
+                                    //修改地址
+                                    $("input[name='username']").val(receiverName);
+                                    $("input[name='telephone']").val(receiverMobile);
+                                    // $("#province").val(receiverProvince);
+                                    // $("#city").val(receiverCity);
+                                    // $("#town").val(receiverDistrict);
+                                    $("input[name='address']").val(receiverAddress);
+                                    $("input[name='postcode']").val(receiverZip);
+                                    $("input[name='queding']").hide();
+                                    $("input[name='xiugai']").show();
+
+                                    })
+                                //修改确认
+                                $("input[name='xiugai']").click(function () {
+                                    var id=shippingId;
+                                    var userId=${sessionScope.currentUser.id};
+                                    var receiverName = $("input[name='username']").val();
+                                    var receiverPhone = $("input[name='telephone']").val();
+                                    var receiverMobile = $("input[name='telephone']").val();
+                                    var receiverProvince = $("#province").val();
+                                    var receiverCity = $("#city").val();
+                                    var receiverDistrict = $("#town").val();
+                                    var receiverAddress = $("input[name='address']").val();
+                                    var receiverZip = $("input[name='postcode']").val();
+                                    if(receiverName!=""&receiverPhone!=""&receiverMobile!=""
+                                        &receiverProvince!=""&receiverCity!=""&receiverAddress!=""&receiverZip!=""){
+                                        $.ajax({
+                                            url : "shipping/update.do",
+                                            type : "GET",
+                                            data :{id:id,userId:userId,receiverName:receiverName,receiverPhone:receiverPhone,receiverMobile:receiverMobile,receiverProvince:receiverProvince,receiverCity:receiverCity,receiverAddress:receiverAddress,receiverZip:receiverZip},
+                                            dataType	: "json",
+                                            success     : function(res) {
+                                                var status = res.status;
+                                                if(status==0){
+                                                    alert(res.data);
+                                                }
+                                            },
+                                            error       : function(err){
+                                                alert(err.statusText);
+                                            }
+                                        })
+                                    }else {
+                                        alert("请填写正确的地址信息");
+                                    }
+
+                                })
                             },
                                 error       : function(err){
                                     alert(err.statusText);

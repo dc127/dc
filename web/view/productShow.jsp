@@ -49,14 +49,14 @@
         <div id="vipRight">
             <div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;">
             	<div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">商品管理</div>
-                    <button class="width40" style="height:28px;width:100px;margin-top:30px;margin-left:800px;"><a href="addProduct.jsp" style="color: #1d1d1d">添加商品</a></button>
-                <div class="width40 font24" style="height:28px;width:36px;margin-top:-25px;margin-left:70px;">
+                    <button class="" style="height:28px;width: 70px;margin-top:30px;margin-left:110px;"><a href="addProduct.jsp" style="color: #1d1d1d">添加商品</a></button>
+                <div class="width40 font24" style="height:28px;width: 122px;margin-top:-25px;margin-left:200px;">
                             <select id="select1">
                                 <option value="productId">按商品Id查询</option>
                                 <option selected value="prductName">按商品名称查询</option>
                             </select>
                 </div>
-                        <div class="width60 font24" style="height:28px;width:516px;border:1px solid #66c561;margin-top:-32px;margin-left:200px;">
+                        <div class="width60 font24" style="height:28px;width: 320px;border:1px solid #66c561;margin-top:-32px;margin-left:350px;">
                             <form>
                                 <input type="text" placeholder="关键词查询" class="searCh">
                                 <input type="button" class="btnSearh" value="搜索" onclick="search1();">
@@ -99,13 +99,101 @@
                                         "            <div class=\"left_yh tcenter font16 c_66 width20\">" + id + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 c_66 width20\">" +name+"<br>"+ subtitle + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 red width20\">" + price + "</div>\n" +
+                                        "            <div name='pstatus' class=\"left_yh tcenter font16 c_66 width20\"><font>" + status1 + "</font>" +
+
+                                        "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20 hidden_yh\">\n" +
+                                        " <button name='updis' class=\"c_33 onHover\">上架</button>\n"+
+                                        " <button name='dis' class=\"c_33 onHover\">下架</button>\n"+
+                                        "                <a href='seeProduct.jsp?id=" + id + "'  class=\"c_33 onHover\">查看</a>\n"+
+                                        "                <a href='updateProduct.jsp?id=" + id + "' class=\"c_33 onHover\">编辑</a>\n" +
+                                        "<a name='del' class=\"c_33 onHover\">删除</a>\n"+
+                                        "            </div>\n" +
+                                        "        </div>");
+                                    if("在售"==status1){
+                                        $("button[name='updis']").hide();
+                                    }else if("已下架"==status1){
+                                        $("button[name='dis']").hide();
+                                    }
+                                    else if("已删除"==status1){
+                                        $("a[name='del']").hide();
+                                    }
+                                }
+                                //上架功能
+                                $("button[name='updis']").click(function () {
+                                    $.ajax({
+                                        url : "/manage/product/setSaleStatus.do",
+                                        type : "GET",
+                                        data : {productId:$(this).parent().parent().attr('id'),status:1},
+                                        dataType	: "json",
+                                        success     : function(res) {
+                                            alert(res.data);
+                                            window.location.reload();
+                                        },
+                                        error       : function(err){
+                                            alert(err.statusText);
+                                        }
+                                    })
+                                })
+
+                                //下架功能
+                                $("button[name='dis']").click(function () {
+                                    $.ajax({
+                                        url : "/manage/product/setSaleStatus.do",
+                                        type : "GET",
+                                        data : {productId:$(this).parent().parent().attr('id'),status:2},
+                                        dataType	: "json",
+                                        success     : function(res) {
+                                            alert(res.data);
+                                            window.location.reload();
+                                        },
+                                        error       : function(err){
+                                            alert(err.statusText);
+                                        }
+                                    })
+                                })
+                                //删除功能
+                                $("a[name='del']").click(function () {
+                                    $.ajax({
+                                        url : "/manage/product/setSaleStatus.do",
+                                        type : "GET",
+                                        data : {productId:$(this).parent().parent().attr('id'),status:3},
+                                        dataType	: "json",
+                                        success     : function(res) {
+                                            alert(res.data);
+                                            window.location.reload();
+                                        },
+                                        error       : function(err){
+                                            alert(err.statusText);
+                                        }
+                                    })
+                                })
+                                /*for (var i = 0; i < list.length; i++) {
+                                    var id = list[i].id;
+                                    var name = list[i].name;
+                                    var subtitle = list[i].subtitle;
+                                    var price = list[i].price;
+                                    var status1 = list[i].status;//1-在售，2-已下架，3-已删除
+                                    if(1==status1){
+                                        status1="在售";
+                                    }else if(2==status1){
+                                        status1="已下架";
+                                    }
+                                    else if(3==status1){
+                                        status1="已删除";
+                                    }
+                                    $("#productSelect").append("<div  id=\"" + id + "\" class=\"width100 hidden_yh\" style=\"padding-top:20px;padding-bottom:20px;\">\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20\">" + id + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 c_66 width20\">" +name+"<br>"+ subtitle + "</div>\n" +
+                                        "            <div class=\"left_yh tcenter font16 red width20\">" + price + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 c_66 width20\">" + status1 + "</div>\n" +
                                         "            <div class=\"left_yh tcenter font16 c_66 width20 hidden_yh\">\n" +
                                         "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">查看</a>\n"+
                                         "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">编辑</a>\n" +
+                                        "                <a name='del' class=\"c_33 onHover\">删除</a>\n"+
                                         "            </div>\n" +
                                         "        </div>");
-                                }
+                                }*/
                             },
                             error : function (err) {
                                 alert(err.msg);
@@ -146,8 +234,6 @@
                 alert(err.msg);
             }
         });
-    })
-        $(function () {
             $.ajax({
                 url : "/manage/product/list.do",
                 type : "GET",
@@ -162,30 +248,93 @@
                         var subtitle = list[i].subtitle;
                         var price = list[i].price;
                         var status1 = list[i].status;//1-在售，2-已下架，3-已删除
-                        if(1==status1){
+                        if(1===status1){
                             status1="在售";
-                        }else if(2==status1){
+                        }else if(2===status1){
                             status1="已下架";
                         }
-                        else if(3==status1){
+                        else if(3===status1){
                             status1="已删除";
                         }
                         $("#productSelect").append("<div  id=\"" + id + "\" class=\"width100 hidden_yh\" style=\"padding-top:20px;padding-bottom:20px;\">\n" +
                             "            <div class=\"left_yh tcenter font16 c_66 width20\">" + id + "</div>\n" +
                             "            <div class=\"left_yh tcenter font16 c_66 width20\">" +name+"<br>"+ subtitle + "</div>\n" +
                             "            <div class=\"left_yh tcenter font16 red width20\">" + price + "</div>\n" +
-                            "            <div class=\"left_yh tcenter font16 c_66 width20\">" + status1 + "</div>\n" +
+                            "            <div name='pstatus' class=\"left_yh tcenter font16 c_66 width20\"><font>" + status1 + "</font>" +
+
+                            "</div>\n" +
                             "            <div class=\"left_yh tcenter font16 c_66 width20 hidden_yh\">\n" +
-                            "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">查看</a>\n"+
-                            "                <a href=\"javascript:void(0)\" class=\"c_33 onHover\">编辑</a>\n" +
+                            " <button name='updis' class=\"c_33 onHover\">上架</button>\n"+
+                            " <button name='dis' class=\"c_33 onHover\">下架</button>\n"+
+                            "                <a href='seeProduct.jsp?id=" + id + "'  class=\"c_33 onHover\">查看</a>\n"+
+                            "                <a href='updateProduct.jsp?id=" + id + "' class=\"c_33 onHover\">编辑</a>\n" +
+                            "<a name='del' class=\"c_33 onHover\">删除</a>\n"+
                             "            </div>\n" +
                             "        </div>");
+                      /*  if(status1==="在售"){
+                            $("button[name='updis']").hide();
+                        }else if(status1==="已下架"){
+                            $("button[name='dis']").hide();
+                        }
+                        else if(status1==="已删除"){
+                            $("a[name='del']").hide();
+                        }*/
                     }
+                    //上架功能
+                    $("button[name='updis']").click(function () {
+                        $.ajax({
+                            url : "/manage/product/setSaleStatus.do",
+                            type : "GET",
+                            data : {productId:$(this).parent().parent().attr('id'),status:1},
+                            dataType	: "json",
+                            success     : function(res) {
+                                alert(res.data);
+                                window.location.reload();
+                            },
+                            error       : function(err){
+                                alert(err.statusText);
+                            }
+                        })
+                    })
+
+                    //下架功能
+                    $("button[name='dis']").click(function () {
+                        $.ajax({
+                            url : "/manage/product/setSaleStatus.do",
+                            type : "GET",
+                            data : {productId:$(this).parent().parent().attr('id'),status:2},
+                            dataType	: "json",
+                            success     : function(res) {
+                                alert(res.data);
+                                window.location.reload();
+                            },
+                            error       : function(err){
+                                alert(err.statusText);
+                            }
+                        })
+                    })
+                    //删除功能
+                    $("a[name='del']").click(function () {
+                        $.ajax({
+                            url : "/manage/product/setSaleStatus.do",
+                            type : "GET",
+                            data : {productId:$(this).parent().parent().attr('id'),status:3},
+                            dataType	: "json",
+                            success     : function(res) {
+                                alert(res.data);
+                                window.location.reload();
+                            },
+                            error       : function(err){
+                                alert(err.statusText);
+                            }
+                        })
+                    })
                 },
                 error       : function(err){
                     alert(err.statusText);
                 }
             })
+
         })
 </script>
 
