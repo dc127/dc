@@ -30,12 +30,20 @@
     </div>
 </div>
 <div class="width100 hidden_yh">
-	<div class="width1200 center_yh hidden_yh">
-    	<a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
+    <div class="width1200 center_yh hidden_yh">
+        <a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
         <div class="right_yh" style="height:28px;width:316px;border:2px solid #66c561;margin-top:48px;">
-        	<form>
-                <input type="text" placeholder="关键词查询" class="searCh">
-                <input type="button" class="btnSearh" value="搜索">
+            <script type="text/javascript">
+                $(function () {
+                    $("input[name='sousuobutton']").click(function () {
+                        var keyword =$("input[name='sousuo']").val();
+                        window.location.href="http://qingzhenwei.natapp1.cc/searchDetailShow.jsp?keyword="+keyword;
+                    })
+                })
+            </script>
+            <form action="" method="get">
+                <input type="text" placeholder="关键词查询" class="searCh" name="sousuo">
+                <input type="submit" class="btnSearh" value="搜索" name="sousuobutton">
             </form>
         </div>
     </div>
@@ -165,7 +173,7 @@
                                             "                    <!--总结-->\n" +
                                             "                    <div style=\"width:838px;padding-top:30px;padding-bottom:30px;\" class=\"hidden_yh center_yh tleft\">\n" +
                                             "                    \t<font class=\"font24\">总金额<font class=\"font18 c_66\">(含运费0元)：</font></font><font class=\"red font34\"><font class=\"font24\">￥</font>"+payment+"</font>\n" +
-                                            "                        <a href=\"javascript:void(0)\" class=\"c_33 onHover font20 onorange right_yh\" style=\"margin-top:\">确认收货</a>\n" +
+                                         /*   "                        <a href=\"javascript:void(0)\" class=\"c_33 onHover font20 onorange right_yh\" style=\"margin-top:\">确认收货</a>\n" +*/
                                             "                    </div>\n" +
                                             "                \t</div>");
                                         var orderItemVoList = list[i].orderItemVoList;

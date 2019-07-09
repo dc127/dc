@@ -49,7 +49,7 @@
         <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
             <div class="login">
-                <a href="peopleMessage.jsp">欢迎您,${sessionScope.currentUser.username }</a>
+                <a href="productShow.jsp">欢迎您,${sessionScope.currentUser.username }</a>
                 <b></b>
                 <a onclick="Logout();">退出</a>
             </div>

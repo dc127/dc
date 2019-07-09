@@ -30,12 +30,20 @@
     </div>
 </div>
 <div class="width100 hidden_yh">
-	<div class="width1200 center_yh hidden_yh">
-    	<a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
+    <div class="width1200 center_yh hidden_yh">
+        <a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
         <div class="right_yh" style="height:28px;width:316px;border:2px solid #66c561;margin-top:48px;">
-        	<form>
-                <input type="text" placeholder="关键词查询" class="searCh">
-                <input type="button" class="btnSearh" value="搜索">
+            <script type="text/javascript">
+                $(function () {
+                    $("input[name='sousuobutton']").click(function () {
+                        var keyword =$("input[name='sousuo']").val();
+                        window.location.href="http://qingzhenwei.natapp1.cc/searchDetailShow.jsp?keyword="+keyword;
+                    })
+                })
+            </script>
+            <form action="" method="get">
+                <input type="text" placeholder="关键词查询" class="searCh" name="sousuo">
+                <input type="submit" class="btnSearh" value="搜索" name="sousuobutton">
             </form>
         </div>
     </div>
@@ -182,7 +190,7 @@
                                             "                    <div class=\"left_yh tcenter font20 c_66\" style=\"width:18%\">"+createTime+"</div>\n" +
                                             "                    <div class=\"left_yh tcenter font20 c_66\" style=\"width:16.4%\">"+statusDesc+"</div>\n" +
                                             "                    <div class=\"left_yh tcenter font20 c_66\" style=\"width:16.4%\">"+paymentTypeDesc+"</div>\n" +
-                                            "                    <div class=\"left_yh tcenter font20 c_66\" style=\"width:16.4%\">"+statusDesc+"</div>\n" +
+                                            "                    <div class=\"left_yh tcenter font20 c_66\" style=\"width:16.4%\"><a style='color: #1d1d1d;' href='http://qingzhenwei.natapp1.cc/orderFinalShow.jsp?orderNo="+orderNo+"'>"+statusDesc+"</a></div>\n" +
                                             "                </div>");
                                     }
                                 }
@@ -194,25 +202,6 @@
                     })
                 </script>
             </div>
-            <%--<div class="hidden_yh bj_fff" style="width:938px;border:1px solid #ddd;margin-top:26px;">--%>
-            	<%--<div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">最近收藏</div>--%>
-                <%--<div class="hidden_yh" style="width:916px;padding:20px;padding-bottom:0;">--%>
-                	 <%--<%--%>
-                	 <%--%>--%>
-                     <%--&lt;%&ndash;List<Gift> gift = (List<Gift>)request.getAttribute("gift");&ndash;%&gt;--%>
-                     <%--&lt;%&ndash;for(int i=0;i<gift.size();i++){ %>&ndash;%&gt;--%>
-                	 <%--&lt;%&ndash;<a href="FindAllCollectionServlet" class="navSc">&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;<img src="images/xc.png"> &ndash;%&gt;--%>
-                        <%--<%--%>
-<%--//                        out.print("<h3>"+gift.get(i).getGift_name()+"</h3>");--%>
-<%--//						out.print("<p class='font16 red'  style='margin-top:10px;'>￥"+gift.get(i).getGift_price()+"</p>");--%>
-                        <%--%>--%>
-                    <%--&lt;%&ndash;</a>&ndash;%&gt;--%>
-                    <%--<%--%>
-<%--//                     }--%>
-                    <%--%> --%>
-                <%--</div>--%>
-            <%--</div>--%>
         </div>
     </div>
 </div>

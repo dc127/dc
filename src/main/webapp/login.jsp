@@ -31,12 +31,20 @@
     </div>
 </div>
 <div class="width100 hidden_yh">
-	<div class="width1200 center_yh hidden_yh">
-    	<a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
+    <div class="width1200 center_yh hidden_yh">
+        <a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
         <div class="right_yh" style="height:28px;width:316px;border:2px solid #66c561;margin-top:48px;">
-        	<form action="#" method="post">
-                <input type="text" placeholder="关键词查询" class="searCh" name="s">
-                <input type="submit" class="btnSearh" value="搜索">
+            <script type="text/javascript">
+                $(function () {
+                    $("input[name='sousuobutton']").click(function () {
+                        var keyword =$("input[name='sousuo']").val();
+                        window.location.href="http://qingzhenwei.natapp1.cc/searchDetailShow.jsp?keyword="+keyword;
+                    })
+                })
+            </script>
+            <form action="" method="get">
+                <input type="text" placeholder="关键词查询" class="searCh" name="sousuo">
+                <input type="submit" class="btnSearh" value="搜索" name="sousuobutton">
             </form>
         </div>
     </div>

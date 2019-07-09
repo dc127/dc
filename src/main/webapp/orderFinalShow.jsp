@@ -158,7 +158,6 @@
                     alert(err.statusText);
                 }
             });
-            window.location.reload();
         }
     </script>
 	<!--top-->
@@ -172,6 +171,8 @@
             <span style="color: #c71818">请使用支付宝扫描下面二维码进行支付：</span></h3>
             <br>
             <img  id="qrPath" class="font14 font100 center" src=""  alt="图片加载失败" style="border:1px solid #ddd;height:310px;">
+            <br>
+            <a style="color: #1d1d1d" href="peopleCenter.jsp">返回</a>
         </div>
     </div>
     <!--center-->

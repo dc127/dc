@@ -195,10 +195,11 @@
 </body>
 <script type="text/javascript">
     $(function () {
+        var keyword =${param.keyword};
         $.ajax({
             url: "/product/list.do",
             type : "GET",
-            data :{keyword:'',
+            data :{keyword:keyword,
                 categoryId:100004,
                 orderBy:'price_desc'
             },

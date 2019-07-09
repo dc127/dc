@@ -30,12 +30,20 @@
     </div>
 </div>
 <div class="width100 hidden_yh">
-	<div class="width1200 center_yh hidden_yh">
-    	<a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
+    <div class="width1200 center_yh hidden_yh">
+        <a href="#" class="block_yh left_yh" style="margin-top:40px;"><img src="images/logo2.png"></a>
         <div class="right_yh" style="height:28px;width:316px;border:2px solid #66c561;margin-top:48px;">
-        	<form>
-                <input type="text" placeholder="关键词查询" class="searCh">
-                <input type="button" class="btnSearh" value="搜索">
+            <script type="text/javascript">
+                $(function () {
+                    $("input[name='sousuobutton']").click(function () {
+                        var keyword =$("input[name='sousuo']").val();
+                        window.location.href="http://qingzhenwei.natapp1.cc/searchDetailShow.jsp?keyword="+keyword;
+                    })
+                })
+            </script>
+            <form action="" method="get">
+                <input type="text" placeholder="关键词查询" class="searCh" name="sousuo">
+                <input type="submit" class="btnSearh" value="搜索" name="sousuobutton">
             </form>
         </div>
     </div>
@@ -128,44 +136,44 @@
             	<div class="width100 font24" style="height:60px;line-height:60px;text-indent:50px;background:#f5f8fa;border-bottom:1px solid #ddd;">基本信息</div>
                 <div class="hidden_yh" style="padding:20px;width:898px;">
                 	<!--一条-->
-                    <div class="width100 hidden_yh">
-                		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>当前头像：</div>
-                        <form action="/manage/product/richtextImgUpload.do" method="post" enctype="multipart/form-data">
-                    	<img src="images/mrtx.png" width="105" height="105" class="left_yh">
-                        <div style="width:86px;height:28px;background:#fff;border:1px solid #ddd;float:left;overflow:hidden;position:relative;margin-left:20px;margin-top:75px;">
-                        	<div style="position:absolute;top:0;left:0;width:100%;height:28px;text-align:center;line-height:28px;font-size:16px;color:#666;">上传头像</div>
-                            <input type="file" style="opacity:0;display:block;width:100%;height:100%;" name="upload_file">
-                        </div>
+                    <%--   <div class="width100 hidden_yh">
+                         <div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>当前头像：</div>
+                         <form action="/manage/product/richtextImgUpload.do" method="post" enctype="multipart/form-data">
+                         <img src="images/mrtx.png" width="105" height="105" class="left_yh">
+                       <div style="width:86px;height:28px;background:#fff;border:1px solid #ddd;float:left;overflow:hidden;position:relative;margin-left:20px;margin-top:75px;">
+                             <div style="position:absolute;top:0;left:0;width:100%;height:28px;text-align:center;line-height:28px;font-size:16px;color:#666;">上传头像</div>
+                             <input type="file" style="opacity:0;display:block;width:100%;height:100%;" name="upload_file">
+                         </div>
                         </form>
-                	</div>
+                	</div>--%>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>用户名：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.username }">
+                    	<input name="username" type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.username }" readonly>
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>电话：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.phone }">
+                    	<input name="phone" type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.phone }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>邮箱：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.email }">
+                    	<input name="email" type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.email }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>问题：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.question }">
+                    	<input name="question" type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.question }">
                 	</div>
                     <!--一条-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                 		<div class="left_yh font16 tright" style="width:120px;"><font class="red">*</font>答案：</div>
-                    	<input type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.answer }">
+                    	<input name="answer" type="text" style="width:243px;border:1px solid #ddd;outline:none;height:30px;text-indent:10px;" value="${sessionScope.currentUser.answer }">
                 	</div>
                     <!--保存-->
                     <div class="width100" style="height:32px;line-height:32px;margin-top:83px;">
-                	<a href="javascript:void(0)" class="left_yh block_yh font16 tcenter ff5802" style="width:244px;height:33px;line-height:33px;margin-left:120px;">保存</a>
+                	<a name="baocun" class="left_yh block_yh font16 tcenter ff5802" style="width:244px;height:33px;line-height:33px;margin-left:120px;">保存</a>
                 	</div>
                 </div>
             </div>
@@ -174,53 +182,30 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $.ajax({
-            url : "/user/getUserInfo.do",
-            type : "POST",
-            async : true,
-            dataType : 'json',
-            success : function(data) {
-                if(data.status===0){
-                    $(".not-login").hide();
-                    $(".login").show();
-                }else{
-                    $(".login").hide();
-                    $(".not-login").show();
-                }
-            },
-            error : function (err) {
-                alert(err.msg);
+        $("a[name='baocun']").click( function (){
+                var email = $("input[name='email']").val();
+                var phone = $("input[name='phone']").val();
+                var question = $("input[name='question']").val();
+                var answer = $("input[name='answer']").val();
+                $.ajax({
+                    type  		: "POST",
+                    url   		: '/user/updateUserInfo.do',
+                    data        :{email:email,phone:phone,question:question,answer:answer},
+                    dataType	: "json",
+                    success     : function(res){
+                        //请求成功
+                        if(0 === res.status){
+                            alert(res.msg);
+                        }
+                    },
+                    error       : function(err){
+                        alert(err.statusText);
+                    }
+
+                });
             }
-        });
+        )
     })
-    function Logout() {
-        //网络请求
-        $.ajax({
-            type  		: "POST",
-            url   		: '/user/logout.do',
-            dataType	: "json",
-            success     : function(res){
-                //请求成功
-                if(0 === res.status){
-                    window.location.href='http://localhost:8888/index.jsp';
-                    alert(res.msg);
-                }
-                //无登陆状态，需要强制登陆
-                else if(10 === res.status){
-                    alert("需要登录");
-                }
-                //请求数据错误
-                else if(1  === res.status){
-                    alert("登录错误"+res.msg);
-                }
-
-            },
-            error       : function(err){
-                alert(err.statusText);
-            }
-
-        });
-    }
 </script>
 </body>
 </html>

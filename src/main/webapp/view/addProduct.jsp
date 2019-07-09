@@ -49,7 +49,7 @@
         <font class="left_yh">欢迎来到清真的味道•商城</font>
         <div class="right_yh" id="fast_jump">
             <div class="login">
-                <a href="peopleMessage.jsp">欢迎您,${sessionScope.currentUser.username }</a>
+                <a href="productShow.jsp">欢迎您,${sessionScope.currentUser.username }</a>
                 <b></b>
                 <a onclick="Logout();">退出</a>
             </div>
@@ -93,7 +93,7 @@
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
                     <div class="left_yh font16 tright" style="width:120px;">所属分类：</div>
                     <select id="select2">
-                        <option selected value="10004">食品类</option>
+                        <option selected value="100004">食品类</option>
                     </select>
                 </div>
                 <div class="width100" style="height:32px;line-height:32px;margin-top:25px;">
@@ -169,13 +169,20 @@
                     }
                 })
             });
+        //获取文件名方式一
+        function getFileName(file){//通过第一种方式获取文件名
+            var pos=file.lastIndexOf("\\");//查找最后一个\的位置
+            return file.substring(pos+1); //截取最后一个\位置到字符长度，也就是截取文件名
+        }
         //提交
         $("#fbtn").click(function(){
         var categoryId = $("#select2 option:selected").val();
         var name= $("input[name='productName']").val();
         var subtitle = $("input[name='subtitle']").val();
-        var mainImage = $("input[name='upload_file']").val();
-        var subImages = $("input[name='upload_file']").val();
+            var uploadfile = $("input[name='upload_file']").val();
+            var fileName= getFileName(uploadfile);
+        var mainImage = fileName;
+        var subImages = fileName;
         var detail = $("textarea[name='editor01']").val();
         var price = $("input[name='price']").val();
         var stock = $("input[name='stock']").val();
